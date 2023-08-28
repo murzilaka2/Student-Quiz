@@ -1,0 +1,88 @@
+﻿@using BasicQuiz.ViewModels
+@model QuizViewModel
+@{
+    ViewData["Title"] = @Model.Quiz.Name;
+}
+<h1 class="mt-5">@Model.Quiz.Name</h1>
+<p class="lead">@Model.Quiz.Description</p>
+<hr class="my-4">
+<div>
+    <form asp-action="Index" asp-controller="Home" method="post">
+
+        <div class="h-100 p-5 text-white bg-dark rounded-3">
+            <h3>Времени прошло: </h3>
+            <input asp-for="SpendTime" class="form-control" id="timespent" />
+        </div>
+        @{
+            int count = 1;
+        }
+        <hr class="my-4">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input type="hidden" asp-for="QuizId" />
+
+        @foreach (var question in @Model.Quiz.Questions)
+        {
+            string name = $"Answers[{count - 1}]";
+            <h3>Вопрос #@count</h3>
+            <p>@question.Quesion</p>
+            <div class="p-5 mb-4 bg-light rounded-3">
+                <div class="mb-4">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="@name" id="inlineRadio1" value="@question.AnswerOne" required>
+                        <label class="form-check-label" for="@name">@question.AnswerOne</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="@name" id="inlineRadio2" value="@question.AnswerTwo">
+                        <label class="form-check-label" for="@name">@question.AnswerTwo</label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="@name" id="inlineRadio3" value="@question.AnswerThree">
+                        <label class="form-check-label" for="@name">@question.AnswerThree</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="@name" id="inlineRadio4" value="@question.AnswerFour">
+                        <label class="form-check-label" for="@name">@question.AnswerFour</label>
+                    </div>
+                </div>
+            </div>
+            count++;
+        }
+        <hr class="my-4">
+
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function startTimer() {
+      //выводим предупреждение при обновлении или закрытии страницы
+      window.onbeforeunload = function () {return false;}
+
+      var tobj = document.getElementById("timespent")
+      var t = "0:01";
+      var s = 01;
+      var d = new Date();
+      var timeint = setInterval(function () {
+        s += 1;
+        d.setMinutes("0");
+        d.setSeconds(s);
+        min = d.getMinutes();
+        sec = d.getSeconds();
+        if (sec < 10) sec = "0" + sec;
+        document.getElementById("timespent").value = min + ":" + sec;
+      }, 1000);
+      tobj.value = t;
+    }
+    if (window.addEventListener) {
+      window.addEventListener("load", startTimer);
+    } else if (window.attachEvent) {
+      window.attachEvent("onload", startTimer);
+    }
+</script>
+

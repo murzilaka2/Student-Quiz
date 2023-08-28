@@ -1,0 +1,169 @@
+﻿@using BasicQuiz.ViewModels
+@model QuizViewModel
+@{
+    ViewData["Title"] = "Результаты " + @Model.Quiz.Name;
+}
+<h1 class="mt-5">Результаты - @Model.Quiz.Name</h1>
+<p class="lead"><b>Правильных ответов @Model.CorrectCount из @Model.Answers.Count</b></p>
+<hr class="my-4">
+<div>
+    <div class="h-100 p-5 text-white bg-dark rounded-3">
+        <h3>Затраченное время: </h3>
+        <input type="text" asp-for="SpendTime" class="form-control" disabled />
+    </div>
+    @{
+        int count = 1;
+    }
+    <hr class="my-4">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for="QuizId" />
+
+    @foreach (var question in @Model.Quiz.Questions)
+    {
+        string name = $"Answers[{count - 1}]";
+        <h3>Вопрос #@count</h3>
+        <p>@question.Quesion</p>
+        <div class="p-5 mb-4 bg-light rounded-3 disable">
+            <div class="mb-4">
+
+                @if (question.Correct.Equals(question.AnswerOne))
+                {
+                    <div class="form-check form-check-inline correct">
+                        @if (Model.Answers[count - 1].Equals(question.AnswerOne))
+                        {
+                            <input class="form-check-input" type="radio" name="@name" value="@question.AnswerOne" checked>
+                        }
+                        else
+                        {
+                            <input class="form-check-input" type="radio" name="@name" value="@question.AnswerOne">
+                        }
+                        <label class="form-check-label" for="@name">@question.AnswerOne</label>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-check form-check-inline">
+                        @if (Model.Answers[count - 1].Equals(question.AnswerOne))
+                        {
+                            <input class="form-check-input" type="radio" name="@name" value="@question.AnswerOne" checked>
+                        }
+                        else
+                        {
+                            <input class="form-check-input" type="radio" name="@name" value="@question.AnswerOne">
+                        }
+                        <label class="form-check-label" for="@name">@question.AnswerOne</label>
+                    </div>
+
+                }
+                @if (question.Correct.Equals(question.AnswerTwo))
+                {
+                    <div class="form-check form-check-inline correct">
+                        @if (Model.Answers[count - 1].Equals(question.AnswerTwo))
+                        {
+                            <input class="form-check-input" type="radio" name="@name" value="@question.AnswerTwo" checked>
+                        }
+                        else
+                        {
+                            <input class="form-check-input" type="radio" name="@name" value="@question.AnswerTwo">
+                        }
+                        <label class="form-check-label" for="@name">@question.AnswerTwo</label>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-check form-check-inline">
+                        @if (Model.Answers[count - 1].Equals(question.AnswerTwo))
+                        {
+                            <input class="form-check-input" type="radio" name="@name" value="@question.AnswerTwo" checked>
+                        }
+                        else
+                        {
+                            <input class="form-check-input" type="radio" name="@name" value="@question.AnswerTwo">
+                        }
+                        <label class="form-check-label" for="@name">@question.AnswerTwo</label>
+                    </div>
+
+                }
+            </div>
+
+            <div>
+                @if (question.Correct.Equals(question.AnswerThree))
+                {
+                    <div class="form-check form-check-inline correct">
+                        @if (Model.Answers[count - 1].Equals(question.AnswerThree))
+                        {
+                            <input class="form-check-input" type="radio" name="@name" value="@question.AnswerThree" checked>
+                        }
+                        else
+                        {
+                            <input class="form-check-input" type="radio" name="@name" value="@question.AnswerThree">
+                        }
+                        <label class="form-check-label" for="@name">@question.AnswerThree</label>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-check form-check-inline">
+                        @if (Model.Answers[count - 1].Equals(question.AnswerThree))
+                        {
+                            <input class="form-check-input" type="radio" name="@name" value="@question.AnswerThree" checked>
+                        }
+                        else
+                        {
+                            <input class="form-check-input" type="radio" name="@name" value="@question.AnswerThree">
+                        }
+                        <label class="form-check-label" for="@name">@question.AnswerThree</label>
+                    </div>
+
+                }
+                @if (question.Correct.Equals(question.AnswerFour))
+                {
+                    <div class="form-check form-check-inline correct">
+                        @if (Model.Answers[count - 1].Equals(question.AnswerFour))
+                        {
+                            <input class="form-check-input" type="radio" name="@name" value="@question.AnswerFour" checked>
+                        }
+                        else
+                        {
+                            <input class="form-check-input" type="radio" name="@name" value="@question.AnswerFour">
+                        }
+                        <label class="form-check-label" for="@name">@question.AnswerFour</label>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-check form-check-inline">
+                        @if (Model.Answers[count - 1].Equals(question.AnswerFour))
+                        {
+                            <input class="form-check-input" type="radio" name="@name" value="@question.AnswerFour" checked>
+                        }
+                        else
+                        {
+                            <input class="form-check-input" type="radio" name="@name" value="@question.AnswerFour">
+                        }
+                        <label class="form-check-label" for="@name">@question.AnswerFour</label>
+                    </div>
+
+                }
+            </div>
+        </div>
+        count++;
+    }
+    <hr class="my-4">
+
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Выйти</a>
+    </div>
+</div>
+
+<style>
+    .disable {
+        pointer-events: none;
+        opacity: 0.4;
+    }
+
+    .correct {
+        color: green;
+    }
+</style>
